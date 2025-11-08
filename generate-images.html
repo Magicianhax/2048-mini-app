@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate 2048 Mini App Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .canvas-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        canvas {
+            border: 1px solid #ddd;
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Generate 2048 Mini App Images</h1>
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Click each "Download" button below to save the images</li>
+                <li>Save them in the <code>public</code> folder of your project</li>
+                <li>The images will be automatically used by your Farcaster Mini App</li>
+            </ol>
+        </div>
+
+        <!-- Icon Canvas -->
+        <div class="canvas-container">
+            <h2>Icon (icon.png) - 256x256</h2>
+            <canvas id="iconCanvas" width="256" height="256"></canvas>
+            <button onclick="downloadImage('iconCanvas', 'icon.png')">Download icon.png</button>
+        </div>
+
+        <!-- OG Image Canvas -->
+        <div class="canvas-container">
+            <h2>OG Image (og-image.png) - 1200x630</h2>
+            <canvas id="ogCanvas" width="1200" height="630"></canvas>
+            <button onclick="downloadImage('ogCanvas', 'og-image.png')">Download og-image.png</button>
+        </div>
+
+        <!-- Splash Canvas -->
+        <div class="canvas-container">
+            <h2>Splash Screen (splash.png) - 1080x1920</h2>
+            <canvas id="splashCanvas" width="1080" height="1920"></canvas>
+            <button onclick="downloadImage('splashCanvas', 'splash.png')">Download splash.png</button>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to create gradient
+        function createGradient(ctx, width, height) {
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            return gradient;
+        }
+
+        // Draw Icon
+        function drawIcon() {
+            const canvas = document.getElementById('iconCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = createGradient(ctx, 256, 256);
+            ctx.fillRect(0, 0, 256, 256);
+            
+            // Inner box
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.fillRect(20, 20, 216, 216);
+            
+            // Text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 80px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('2048', 128, 128);
+        }
+
+        // Draw OG Image
+        function drawOGImage() {
+            const canvas = document.getElementById('ogCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = createGradient(ctx, 1200, 630);
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // Draw game board representation
+            const boardSize = 4;
+            const cellSize = 80;
+            const spacing = 10;
+            const boardWidth = boardSize * cellSize + (boardSize + 1) * spacing;
+            const boardHeight = boardSize * cellSize + (boardSize + 1) * spacing;
+            const boardX = (1200 - boardWidth) / 2;
+            const boardY = (630 - boardHeight) / 2 - 40;
+            
+            const colors = ['#eee4da', '#ede0c8', '#f2b179', '#f59563', '#f67c5f', '#f65e3b'];
+            
+            for (let i = 0; i < boardSize; i++) {
+                for (let j = 0; j < boardSize; j++) {
+                    const x = boardX + j * (cellSize + spacing) + spacing;
+                    const y = boardY + i * (cellSize + spacing) + spacing;
+                    ctx.fillStyle = colors[(i + j) % colors.length];
+                    ctx.fillRect(x, y, cellSize, cellSize);
+                }
+            }
+            
+            // Title
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 72px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('2048 Game', 600, boardY + boardHeight + 80);
+            
+            // Subtitle
+            ctx.font = '36px Arial';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillText('Join the tiles, get to 2048!', 600, boardY + boardHeight + 130);
+        }
+
+        // Draw Splash Screen
+        function drawSplash() {
+            const canvas = document.getElementById('splashCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = createGradient(ctx, 1080, 1920);
+            ctx.fillRect(0, 0, 1080, 1920);
+            
+            // Game board
+            const boardSize = 4;
+            const cellSize = 120;
+            const spacing = 15;
+            const boardWidth = boardSize * cellSize + (boardSize + 1) * spacing;
+            const boardHeight = boardSize * cellSize + (boardSize + 1) * spacing;
+            const boardX = (1080 - boardWidth) / 2;
+            const boardY = 1920 / 2 - boardHeight / 2 - 100;
+            
+            const values = [
+                [2, 4, 8, 16],
+                [32, 64, 128, 256],
+                [512, 1024, 2048, 4096],
+                [8192, 16384, 32768, 65536]
+            ];
+            
+            const cellColors = {
+                0: '#cdc1b4', 2: '#eee4da', 4: '#ede0c8', 8: '#f2b179',
+                16: '#f59563', 32: '#f67c5f', 64: '#f65e3b', 128: '#edcf72',
+                256: '#edcc61', 512: '#edc850', 1024: '#edc53f', 2048: '#edc22e'
+            };
+            
+            for (let i = 0; i < boardSize; i++) {
+                for (let j = 0; j < boardSize; j++) {
+                    const x = boardX + j * (cellSize + spacing) + spacing;
+                    const y = boardY + i * (cellSize + spacing) + spacing;
+                    const value = values[i][j];
+                    ctx.fillStyle = cellColors[value] || '#3c3a32';
+                    ctx.fillRect(x, y, cellSize, cellSize);
+                    
+                    if (value <= 2048) {
+                        ctx.fillStyle = value <= 4 ? '#776e65' : '#f9f6f2';
+                        const fontSize = value >= 1000 ? 36 : value >= 100 ? 42 : 48;
+                        ctx.font = `bold ${fontSize}px Arial`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(value.toString(), x + cellSize / 2, y + cellSize / 2);
+                    }
+                }
+            }
+            
+            // Title
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 96px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('2048', 540, boardY - 150);
+            
+            // Subtitle
+            ctx.font = '48px Arial';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillText('Join the tiles', 540, boardY + boardHeight + 100);
+            ctx.fillText('get to 2048!', 540, boardY + boardHeight + 160);
+        }
+
+        // Download function
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initialize all canvases
+        window.onload = function() {
+            drawIcon();
+            drawOGImage();
+            drawSplash();
+        };
+    </script>
+</body>
+</html>
+
