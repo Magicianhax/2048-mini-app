@@ -20,7 +20,12 @@
       "games",
       "puzzle",
       "2048"
-    ]
+    ],
+    "heroImageUrl": "https://2048-mini-app-ochre.vercel.app/og-image.png",
+    "tagline": "Join the tiles, get to 2048!",
+    "ogTitle": "2048 Game - Classic Puzzle Game",
+    "ogDescription": "Join the tiles and get to 2048! A classic puzzle game optimized for Farcaster. Play now and challenge yourself!",
+    "ogImageUrl": "https://2048-mini-app-ochre.vercel.app/og-image.png"
   }
 }
 
