@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjIyOTkzNCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGVGNGRDMTFFMTI0RDJFNjZDYzJiNDVmNzlFMDhjMjc1ZDU3MjEzYzgifQ",
+    "payload": "eyJkb21haW4iOiIyMDQ4LW1pbmktYXBwLW9jaHJlLnZlcmNlbC5hcHAifQ",
+    "signature": "jfqJxBxe5KcrjXdsPBC9TweAmQifncoC22zSvjpcUvRYWaOxdypOA4NknvTQDoYDj+zG5Qjtm8tStDxjjL1+6Rs="
+  },
   "miniapp": {
     "version": "1",
     "name": "2048 Game",
